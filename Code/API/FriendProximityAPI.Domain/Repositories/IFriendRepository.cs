@@ -9,5 +9,7 @@ namespace FriendProximityAPI.Domain.Repositories
         bool Add(Friend friend);
 
         IQueryable<Friend> Search(Func<Friend, bool> predicate);
+
+        bool LocationAlreadyExists(int Latitude, int Longitude);
     }
 }
