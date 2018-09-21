@@ -41,6 +41,7 @@ namespace FriendProximityAPI.Domain.Test.UnitTest
             result.Messages.Should()
                 .Contain(m => 
                     m.MessageType == MessageType.Validation && 
+                    m.Property == "Location" &&
                     m.Description == "Já existe um amigo cadastrado nesta localização.");
         }
         

@@ -6,6 +6,6 @@ namespace FriendProximityAPI.Shared.Commands
     {
         bool IsSuccessful { get; }
         object Data { get; }
-        Messages Messages { get; set; }
+        Messages Messages { get; }
     }
 }
