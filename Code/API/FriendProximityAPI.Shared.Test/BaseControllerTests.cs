@@ -1,5 +1,6 @@
 using FluentAssertions;
 using FriendProximityAPI.Domain.Commands;
+using FriendProximityAPI.Shared.Commands;
 using FriendProximityAPI.Shared.Controllers;
 using FriendProximityAPI.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,12 @@ namespace FriendProximityAPI.Shared.Test
     [TestClass]
     public class BaseControllerTests
     {
-        private BaseController baseController;
+        private TestController baseController;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            this.baseController = new BaseController();
+            this.baseController = new TestController();
         }
 
         [TestMethod]
@@ -87,6 +88,14 @@ namespace FriendProximityAPI.Shared.Test
             result.Should().BeAssignableTo<BadRequestObjectResult>();
             (result as BadRequestObjectResult).StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
             (result as BadRequestObjectResult).Value.Should().BeEquivalentTo(new CommandResult(false, true, new Message() { MessageType = Enums.MessageType.Information }));
+        }
+    }
+
+    public class TestController : BaseController
+    {
+        public new ActionResult DefineCorrectlyResult(ICommandResult commandResult)
+        {
+            return base.DefineCorrectlyResult(commandResult);
         }
     }
 }
