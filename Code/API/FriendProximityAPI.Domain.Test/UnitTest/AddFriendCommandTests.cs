@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿    using FluentAssertions;
 using FluentValidator;
 using FriendProximityAPI.Domain.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -12,13 +12,21 @@ namespace FriendProximityAPI.Controllers
     public class FriendsController : BaseController
     {
         /// <summary>
+        /// 
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetFriends([FromServices]GetFriendHandler getFriendHandler)
+        {
+            return DefineCorrectlyResult(getFriendHandler.Handler(default));
+        }
+
+        /// <summary>
         /// Adiciona um amigo.
         /// </summary>
         [HttpPost]
-        [Route("")]
         public IActionResult AddFriend(AddFriendCommand addFriendCommand, [FromServices]AddFriendHandler addFriendHandler)
         {
-            return DefineCorrectlyResult(addFriendHandler.Handle(addFriendCommand));
+            return DefineCorrectlyResult(addFriendHandler.Handler(addFriendCommand));
         }
     }
 }

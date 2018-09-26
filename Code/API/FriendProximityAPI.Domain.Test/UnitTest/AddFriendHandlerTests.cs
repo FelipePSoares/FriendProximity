@@ -35,7 +35,7 @@ namespace FriendProximityAPI.Domain.Test.UnitTest
                 Longitude = 4321
             };
 
-            var result = addFriendHandler.Handle(command);
+            var result = addFriendHandler.Handler(command);
 
             result.IsSuccessful.Should().BeFalse();
             result.Messages.Should()
@@ -57,7 +57,7 @@ namespace FriendProximityAPI.Domain.Test.UnitTest
                 Longitude = 4321
             };
 
-            var result = addFriendHandler.Handle(command);
+            var result = addFriendHandler.Handler(command);
 
             result.IsSuccessful.Should().BeFalse();
             result.Messages.Should()
@@ -82,7 +82,7 @@ namespace FriendProximityAPI.Domain.Test.UnitTest
                 Longitude = 4321
             };
 
-            var result = addFriendHandler.Handle(command);
+            var result = addFriendHandler.Handler(command);
 
             result.IsSuccessful.Should().BeTrue();
             result.Messages.Should()

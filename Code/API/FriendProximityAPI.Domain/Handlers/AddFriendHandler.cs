@@ -21,7 +21,7 @@ namespace FriendProximityAPI.Domain.Handlers
             this.friendRepository = friendRepository;
         }
 
-        public ICommandResult Handle(AddFriendCommand command)
+        public ICommandResult Handler(AddFriendCommand command)
         {
             command.Validate();
             if (command.Invalid)
