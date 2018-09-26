@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI", "FriendProximityAPI\FriendProximityAPI.csproj", "{C2B42D8B-02E5-4EE0-B614-21FD7CBB85FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI", "FriendProximityAPI\FriendProximityAPI.csproj", "{C2B42D8B-02E5-4EE0-B614-21FD7CBB85FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI.Domain", "FriendProximityAPI.Domain\FriendProximityAPI.Domain.csproj", "{78752F7B-1E1B-4F62-9191-DAA865C90EA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Domain", "FriendProximityAPI.Domain\FriendProximityAPI.Domain.csproj", "{78752F7B-1E1B-4F62-9191-DAA865C90EA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI.Shared", "FriendProximityAPI.Shared\FriendProximityAPI.Shared.csproj", "{6348A6F3-8C56-496E-830D-78AF070A8829}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Shared", "FriendProximityAPI.Shared\FriendProximityAPI.Shared.csproj", "{6348A6F3-8C56-496E-830D-78AF070A8829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI.Infrastructure", "FriendProximityAPI.Infrastructure\FriendProximityAPI.Infrastructure.csproj", "{5C586D4A-5882-4D1B-A928-75935F0D1B32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Infrastructure", "FriendProximityAPI.Infrastructure\FriendProximityAPI.Infrastructure.csproj", "{5C586D4A-5882-4D1B-A928-75935F0D1B32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{00273119-7DE5-4627-A657-559634FF4BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI.Domain.Test", "FriendProximityAPI.Domain.Test\FriendProximityAPI.Domain.Test.csproj", "{C49A1B94-87E7-43A3-AE5B-6BF36EE9E663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Domain.Test", "FriendProximityAPI.Domain.Test\FriendProximityAPI.Domain.Test.csproj", "{C49A1B94-87E7-43A3-AE5B-6BF36EE9E663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI.Shared.Test", "FriendProximityAPI.Shared.Test\FriendProximityAPI.Shared.Test.csproj", "{5FD85C26-7FD8-45D5-862D-1FEAED77693A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +43,17 @@ Global
 		{C49A1B94-87E7-43A3-AE5B-6BF36EE9E663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C49A1B94-87E7-43A3-AE5B-6BF36EE9E663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C49A1B94-87E7-43A3-AE5B-6BF36EE9E663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD85C26-7FD8-45D5-862D-1FEAED77693A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD85C26-7FD8-45D5-862D-1FEAED77693A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD85C26-7FD8-45D5-862D-1FEAED77693A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD85C26-7FD8-45D5-862D-1FEAED77693A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C49A1B94-87E7-43A3-AE5B-6BF36EE9E663} = {00273119-7DE5-4627-A657-559634FF4BC8}
+		{5FD85C26-7FD8-45D5-862D-1FEAED77693A} = {00273119-7DE5-4627-A657-559634FF4BC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {645349B7-C1E9-49B5-AB23-DAE41AA9CBF4}

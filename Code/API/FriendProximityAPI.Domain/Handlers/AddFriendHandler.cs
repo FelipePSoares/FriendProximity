@@ -40,7 +40,7 @@ namespace FriendProximityAPI.Domain.Handlers
             if (Invalid)
                 return new CommandResult(false, command, Notifications.ToList());
 
-            friendRepository.Add(friend);
+            friendRepository.Add(friend); 
 
             return new CommandResult(true, null, new Message() { MessageType = MessageType.Information, Description = "Amigo cadastrado com sucesso!" });
         }

@@ -5,7 +5,7 @@ namespace FriendProximityAPI.Domain.Commands
 {
     public class CommandResult : ICommandResult
     {
-        public CommandResult(bool isSuccessful, object data, Messages messages)
+        public CommandResult(bool isSuccessful = false, object data = null, Messages messages = null)
         {
             this.IsSuccessful = isSuccessful;
             this.Data = data;

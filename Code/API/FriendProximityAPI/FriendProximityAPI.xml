@@ -4,5 +4,15 @@
         <name>FriendProximityAPI</name>
     </assembly>
     <members>
+        <member name="T:FriendProximityAPI.Controllers.FriendsController">
+            <summary>
+            API para adição e busca dos amigos.
+            </summary>
+        </member>
+        <member name="M:FriendProximityAPI.Controllers.FriendsController.AddFriend(FriendProximityAPI.Domain.Commands.AddFriendCommand,FriendProximityAPI.Domain.Handlers.AddFriendHandler)">
+            <summary>
+            Adiciona um amigo.
+            </summary>
+        </member>
     </members>
 </doc>
