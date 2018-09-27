@@ -1,5 +1,5 @@
 ﻿using FriendProximityAPI.Domain.Commands;
-using FriendProximityAPI.Domain.Handlers;
+using FriendProximityAPI.Domain.Handlers.Interfaces;
 using FriendProximityAPI.Shared.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ namespace FriendProximityAPI.Controllers
         /// 
         /// </summary>
         [HttpGet]
-        public IActionResult GetFriends([FromServices]GetFriendHandler getFriendHandler)
+        public IActionResult GetFriends([FromServices]IGetFriendHandler getFriendHandler)
         {
             return DefineCorrectlyResult(getFriendHandler.Handler(default));
         }
@@ -24,7 +24,7 @@ namespace FriendProximityAPI.Controllers
         /// Adiciona um amigo.
         /// </summary>
         [HttpPost]
-        public IActionResult AddFriend(AddFriendCommand addFriendCommand, [FromServices]AddFriendHandler addFriendHandler)
+        public IActionResult AddFriend(AddFriendCommand addFriendCommand, [FromServices]IAddFriendHandler addFriendHandler)
         {
             return DefineCorrectlyResult(addFriendHandler.Handler(addFriendCommand));
         }

@@ -1,6 +1,7 @@
 ﻿using FluentValidator;
 using FriendProximityAPI.Domain.Commands;
 using FriendProximityAPI.Domain.Entities;
+using FriendProximityAPI.Domain.Handlers.Interfaces;
 using FriendProximityAPI.Domain.Repositories;
 using FriendProximityAPI.Shared.Commands;
 using FriendProximityAPI.Shared.Entities;
@@ -12,7 +13,7 @@ namespace FriendProximityAPI.Domain.Handlers
 {
     public class AddFriendHandler :
         Notifiable,
-        IHandler<AddFriendCommand>
+        IAddFriendHandler
     {
         private IFriendRepository friendRepository;
 
@@ -33,7 +34,7 @@ namespace FriendProximityAPI.Domain.Handlers
             if (Invalid)
                 return new CommandResult(false, command, Notifications.ToList());
 
-            var friend = new Friend(command.Name, command.Latitude, command.Longitude);
+            var friend = new Friend(command.Name, new Point(command.Latitude, command.Longitude));
             
             AddNotifications(friend);
             

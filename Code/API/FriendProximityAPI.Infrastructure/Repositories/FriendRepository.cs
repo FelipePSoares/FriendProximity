@@ -17,7 +17,7 @@ namespace FriendProximityAPI.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public IQueryable<Friend> Search(Func<Friend, bool> predicate)
+        public IQueryable<Friend> GetAll()
         {
             throw new NotImplementedException();
         }

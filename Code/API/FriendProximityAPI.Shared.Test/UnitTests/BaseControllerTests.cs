@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 
-namespace FriendProximityAPI.Shared.Test
+namespace FriendProximityAPI.Shared.Test.UnitTests
 {
     [TestClass]
     public class BaseControllerTests

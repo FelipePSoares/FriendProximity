@@ -5,11 +5,11 @@ namespace FriendProximityAPI.Shared.Entities
 {
     public abstract class Entity : Notifiable
     {
-        public Entity()
+        public Entity(Guid? id = null)
         {
-            Id = Guid.NewGuid();
+            Id = id ?? Guid.NewGuid();
         }
 
-        public Guid Id { get; private set; }
+        public Guid Id { get; protected set; }
     }
 }

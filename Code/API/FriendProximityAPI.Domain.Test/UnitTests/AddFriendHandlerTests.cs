@@ -7,7 +7,7 @@ using FriendProximityAPI.Domain.Repositories;
 using FriendProximityAPI.Shared.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FriendProximityAPI.Domain.Test.UnitTest
+namespace FriendProximityAPI.Domain.Test.UnitTests
 {
     [TestClass]
     public class AddFriendHandlerTests
