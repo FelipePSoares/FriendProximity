@@ -1,6 +1,5 @@
 ﻿using FriendProximityAPI.Domain.Entities;
-using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace FriendProximityAPI.Domain.Repositories
 {
@@ -8,7 +7,7 @@ namespace FriendProximityAPI.Domain.Repositories
     {
         bool Add(Friend friend);
 
-        IQueryable<Friend> GetAll();
+        ICollection<Friend> GetAll();
 
         bool LocationAlreadyExists(int Latitude, int Longitude);
     }

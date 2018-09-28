@@ -1,33 +1,26 @@
 ﻿using FriendProximityAPI.Domain.Entities;
-using FriendProximityAPI.Infrastructure.Mappings;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace FriendProximityAPI.Infrastructure.Context
 {
-    public class FriendProximityContext : DbContext
+    public class FriendProximityContext
     {
-        private readonly IConfiguration configuration;
+        private readonly IMongoDatabase _database = null;
 
         public FriendProximityContext(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            var client = new MongoClient(configuration.GetConnectionString("DefaultConnection"));
+            if (client != null)
+                _database = client.GetDatabase(configuration.GetValue<string>("ConnectionStrings:DefaultDatabaseName"));
         }
 
-        public DbSet<Friend> Friends { get; set; }
-        public DbSet<Point> Points { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public IMongoCollection<Friend> Friend
         {
-            modelBuilder.ApplyConfiguration(new FriendMap());
-            modelBuilder.ApplyConfiguration(new PointMap());
-
-            base.OnModelCreating(modelBuilder);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase("TestLocal");
+            get
+            {
+                return _database.GetCollection<Friend>("Friend");
+            }
         }
     }
 }

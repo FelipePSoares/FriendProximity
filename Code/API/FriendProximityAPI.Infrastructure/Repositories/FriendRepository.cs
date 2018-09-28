@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using FriendProximityAPI.Domain.Entities;
+﻿using FriendProximityAPI.Domain.Entities;
 using FriendProximityAPI.Domain.Repositories;
 using FriendProximityAPI.Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FriendProximityAPI.Infrastructure.Repositories
 {
@@ -18,16 +18,15 @@ namespace FriendProximityAPI.Infrastructure.Repositories
 
         public bool Add(Friend friend)
         {
-            var result = this.friendProximityContext.Friends.Add(friend);
-            this.friendProximityContext.SaveChanges();
+            this.friendProximityContext.Friend.InsertOne(friend);
 
-            return result.State == EntityState.Added;
+            return true;
         }
 
         public bool LocationAlreadyExists(int Latitude, int Longitude) 
-            => this.friendProximityContext.Friends
-                .Any(f => f.Point.Latitude == Latitude && f.Point.Longitude == Longitude);
+            => this.friendProximityContext.Friend
+                .Find(f => f.Point.Latitude == Latitude && f.Point.Longitude == Longitude).Any();
 
-        public IQueryable<Friend> GetAll() => this.friendProximityContext.Friends;
+        public ICollection<Friend> GetAll() => this.friendProximityContext.Friend.Find(_ => true).ToList();
     }
 }

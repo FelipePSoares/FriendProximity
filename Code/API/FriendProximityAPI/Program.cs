@@ -12,7 +12,8 @@ namespace FriendProximityAPI
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
-                .WriteTo.File("log\\log-.log", LogEventLevel.Information, rollingInterval: RollingInterval.Day)
+                .Filter.ByIncludingOnly(l => l.Level == LogEventLevel.Information && l.MessageTemplate.Text.Contains("Math"))
+                .WriteTo.MongoDB("mongodb://192.168.0.100/logs", collectionName: "CalculoHistoricoLog")
                 .CreateLogger();
 
             try

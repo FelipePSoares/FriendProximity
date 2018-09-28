@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Domain.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Shared.Test", "FriendProximityAPI.Shared.Test\FriendProximityAPI.Shared.Test.csproj", "{5FD85C26-7FD8-45D5-862D-1FEAED77693A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI.Test", "FriendProximityAPI.Test\FriendProximityAPI.Test.csproj", "{14C7363D-8498-4F9A-B78D-A57098DD948E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Test", "FriendProximityAPI.Test\FriendProximityAPI.Test.csproj", "{14C7363D-8498-4F9A-B78D-A57098DD948E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendProximityAPI.Infrastructure.Test", "FriendProximityAPI.Infrastructure.Test\FriendProximityAPI.Infrastructure.Test.csproj", "{105FF29A-D8BD-482F-9DB9-8383A3E2D22C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendProximityAPI.Infrastructure.Test", "FriendProximityAPI.Infrastructure.Test\FriendProximityAPI.Infrastructure.Test.csproj", "{105FF29A-D8BD-482F-9DB9-8383A3E2D22C}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B3305C66-BCFB-4A08-BC52-BA91E816CE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{105FF29A-D8BD-482F-9DB9-8383A3E2D22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{105FF29A-D8BD-482F-9DB9-8383A3E2D22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{105FF29A-D8BD-482F-9DB9-8383A3E2D22C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3305C66-BCFB-4A08-BC52-BA91E816CE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3305C66-BCFB-4A08-BC52-BA91E816CE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3305C66-BCFB-4A08-BC52-BA91E816CE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3305C66-BCFB-4A08-BC52-BA91E816CE0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

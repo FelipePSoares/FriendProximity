@@ -33,7 +33,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             };
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 
@@ -49,7 +49,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             };
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 
@@ -66,7 +66,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             };
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 
@@ -84,7 +84,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             };
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
             
@@ -103,7 +103,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             };
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 
@@ -123,7 +123,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             };
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 
@@ -151,7 +151,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             };
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 
@@ -168,7 +168,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
                 listFriends.Add(new Friend($"{i}", new Point(random.Next(0, 1000), random.Next(0, 1000))));
 
             A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends.AsQueryable());
+                .Returns(listFriends);
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 

@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  friendproximityapi:
+    image: ${DOCKER_REGISTRY}friendproximityapi
+    build:
+      context: ./FriendProximityAPI
+      dockerfile: Dockerfile

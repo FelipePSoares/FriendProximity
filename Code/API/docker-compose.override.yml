@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  friendproximityapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:DefaultConnection=mongodb://192.168.0.100/
+      - ConnectionStrings:DefaultDatabaseName=FriendProximity
+    ports:
+      - "80"
+    network_mode: my-bridge-network
