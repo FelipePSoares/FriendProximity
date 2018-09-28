@@ -5,6 +5,7 @@ using FriendProximityAPI.Domain.Handlers.Interfaces;
 using FriendProximityAPI.Domain.Repositories;
 using FriendProximityAPI.Shared.Commands;
 using FriendProximityAPI.Shared.Entities;
+using FriendProximityAPI.Shared.Enums;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -23,15 +24,15 @@ namespace FriendProximityAPI.Domain.Handlers
             this.friendRepository = friendRepository;
         }
 
-        public ICommandResult Handler(GetFriendCommand command)
+        public GetFriendCommandResult Handler(GetFriendCommand command)
         {
             command.Validate();
             if (command.Invalid)
-                return new CommandResult(false, command, command.Notifications.ToList());
+                return new GetFriendCommandResult(false, null, command.Notifications.ToList());
 
             var friendsFormatted = FormatFriends(friendRepository.GetAll().ToList(), command.NumberOfCloserFriends);
 
-            return new CommandResult(true, friendsFormatted.Select(f => new { name = f.Name, close_friends = f.CloseFriends }).ToList(), default);
+            return new GetFriendCommandResult(true, friendsFormatted.Select(f => new FriendCommandResult(f.Name, f.CloseFriends.ToList())).ToList(), new Message(messageType: MessageType.Information, description: "Busca realizada com sucesso!!!" ));
         }
 
         private List<(string Name, IEnumerable<string> CloseFriends)> FormatFriends(List<Friend> friends, int numberOfCloserFriends)

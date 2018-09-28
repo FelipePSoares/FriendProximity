@@ -1,8 +1,9 @@
-﻿using System;
+﻿using FriendProximityAPI.Shared.Entities;
+using System;
 
 namespace FriendProximityAPI.Domain.Entities
 {
-    public class Point
+    public class Point : Entity
     {
         public Point(int latitude, int longitude)
         {

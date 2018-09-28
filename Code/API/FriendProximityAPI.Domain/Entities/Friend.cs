@@ -6,6 +6,8 @@ namespace FriendProximityAPI.Domain.Entities
 {
     public class Friend : Entity
     {
+        protected Friend() { }
+
         public Friend(string name, Point point, Guid? id = null) : base(id)
         {
             this.Name = name;

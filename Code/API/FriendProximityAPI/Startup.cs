@@ -1,5 +1,7 @@
 ﻿using FriendProximityAPI.Domain.Handlers;
+using FriendProximityAPI.Domain.Handlers.Interfaces;
 using FriendProximityAPI.Domain.Repositories;
+using FriendProximityAPI.Infrastructure.Context;
 using FriendProximityAPI.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,8 +49,10 @@ namespace FriendProximityAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
+            services.AddScoped<FriendProximityContext>();
             services.AddScoped<IFriendRepository, FriendRepository>();
-            services.AddScoped<AddFriendHandler>((serviceProvider) => new AddFriendHandler(serviceProvider.GetService<IFriendRepository>()));
+            services.AddScoped<IGetFriendHandler, GetFriendHandler>();
+            services.AddScoped<IAddFriendHandler, AddFriendHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

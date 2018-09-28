@@ -3,11 +3,22 @@ using FriendProximityAPI.Shared.Enums;
 using FriendProximityAPI.Shared.Extensions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace FriendProximityAPI.Shared.Entities
 {
     public class Message
     {
+        public Message() { }
+
+        public Message([Optional]string code, [Optional]MessageType messageType, [Optional]string property, [Optional]string description)
+        {
+            this.Code = code;
+            this.MessageType = messageType;
+            this.Property = property;
+            this.Description = description;
+        }
+
         public string Code { get; set; }
         public MessageType MessageType { get; set; }
         public string Property { get; set; }

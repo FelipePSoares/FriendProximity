@@ -22,28 +22,28 @@ namespace FriendProximityAPI.Domain.Handlers
             this.friendRepository = friendRepository;
         }
 
-        public ICommandResult Handler(AddFriendCommand command)
+        public AddFriendCommandResult Handler(AddFriendCommand command)
         {
             command.Validate();
             if (command.Invalid)
-                return new CommandResult(false, command, command.Notifications.ToList());
+                return new AddFriendCommandResult(false, false, command.Notifications.ToList());
             
             if (friendRepository.LocationAlreadyExists(Latitude: command.Latitude, Longitude: command.Longitude))
                 AddNotification("Location", "Já existe um amigo cadastrado nesta localização.");
 
             if (Invalid)
-                return new CommandResult(false, command, Notifications.ToList());
+                return new AddFriendCommandResult(false, false, Notifications.ToList());
 
             var friend = new Friend(command.Name, new Point(command.Latitude, command.Longitude));
             
             AddNotifications(friend);
             
             if (Invalid)
-                return new CommandResult(false, command, Notifications.ToList());
+                return new AddFriendCommandResult(false, false, Notifications.ToList());
 
             friendRepository.Add(friend); 
 
-            return new CommandResult(true, null, new Message() { MessageType = MessageType.Information, Description = "Amigo cadastrado com sucesso!" });
+            return new AddFriendCommandResult(true, true, new Message() { MessageType = MessageType.Information, Description = "Amigo cadastrado com sucesso!" });
         }
     }
 }

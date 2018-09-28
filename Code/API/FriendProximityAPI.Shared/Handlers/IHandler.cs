@@ -1,8 +1,10 @@
 using FriendProximityAPI.Shared.Commands;
 
 namespace FriendProximityAPI.Shared.Handlers {
-    public interface IHandler<T> where T : ICommand
+    public interface IHandler<Entry, Result> 
+        where Entry : ICommand 
+        where Result : ICommandResult
     {
-        ICommandResult Handler(T command);
+        Result Handler(Entry command);
     }
 }

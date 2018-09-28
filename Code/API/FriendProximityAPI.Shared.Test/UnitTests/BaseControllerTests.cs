@@ -1,3 +1,4 @@
+using FakeItEasy;
 using FluentAssertions;
 using FriendProximityAPI.Domain.Commands;
 using FriendProximityAPI.Shared.Commands;
@@ -23,30 +24,20 @@ namespace FriendProximityAPI.Shared.Test.UnitTests
         [TestMethod]
         public void ShouldReturnOkResultWhenIsSuccessfulResult()
         {
-            var commandResult = new CommandResult(true, true);
-
+            var commandResult = A.Fake<ICommandResult>();
+            A.CallTo(() => commandResult.IsSuccessful).Returns(true);
+            
             var result = this.baseController.DefineCorrectlyResult(commandResult);
 
             result.Should().BeAssignableTo<OkObjectResult>();
             (result as OkObjectResult).StatusCode.Should().Be((int)HttpStatusCode.OK);
-            (result as OkObjectResult).Value.Should().BeEquivalentTo(new CommandResult(true, true));
-        }
-
-        [TestMethod]
-        public void ShouldReturnOkResultWhenIsSuccessfulResultWithNoContent()
-        {
-            var commandResult = new CommandResult(true);
-
-            var result = this.baseController.DefineCorrectlyResult(commandResult);
-
-            result.Should().BeAssignableTo<NoContentResult>();
-            (result as NoContentResult).StatusCode.Should().Be((int)HttpStatusCode.NoContent);
         }
 
         [TestMethod]
         public void ShouldReturnBadRequestWhenIsFailResultWithNoContent()
         {
-            var commandResult = new CommandResult(false);
+            var commandResult = A.Fake<ICommandResult>();
+            A.CallTo(() => commandResult.IsSuccessful).Returns(false);
 
             var result = this.baseController.DefineCorrectlyResult(commandResult);
 
@@ -57,37 +48,41 @@ namespace FriendProximityAPI.Shared.Test.UnitTests
         [TestMethod]
         public void ShouldReturnBadRequestWhenIsFailResultWithTypeValidation()
         {
-            var commandResult = new CommandResult(false, true, new Message() { MessageType = Enums.MessageType.Validation });
-
+            var commandResult = A.Fake<ICommandResult>();
+            A.CallTo(() => commandResult.IsSuccessful).Returns(false);
+            A.CallTo(() => commandResult.Messages).Returns(new Message() { MessageType = Enums.MessageType.Validation });
+            
             var result = this.baseController.DefineCorrectlyResult(commandResult);
 
             result.Should().BeAssignableTo<BadRequestObjectResult>();
             (result as BadRequestObjectResult).StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
-            (result as BadRequestObjectResult).Value.Should().BeEquivalentTo(new CommandResult(false, true, new Message() { MessageType = Enums.MessageType.Validation }));
+
         }
 
         [TestMethod]
         public void ShouldReturnBadRequestWhenIsFailResultWithTypeCritical()
         {
-            var commandResult = new CommandResult(false, true, new Message() { MessageType = Enums.MessageType.Critical });
+            var commandResult = A.Fake<ICommandResult>();
+            A.CallTo(() => commandResult.IsSuccessful).Returns(false);
+            A.CallTo(() => commandResult.Messages).Returns(new Message() { MessageType = Enums.MessageType.Critical });
 
             var result = this.baseController.DefineCorrectlyResult(commandResult);
 
             result.Should().BeAssignableTo<BadRequestObjectResult>();
             (result as BadRequestObjectResult).StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
-            (result as BadRequestObjectResult).Value.Should().BeEquivalentTo(new CommandResult(false, true, new Message() { MessageType = Enums.MessageType.Critical }));
         }
 
         [TestMethod]
         public void ShouldReturnBadRequestWhenIsFailResultWithTypedInformation()
         {
-            var commandResult = new CommandResult(false, true, new Message() { MessageType = Enums.MessageType.Information });
+            var commandResult = A.Fake<ICommandResult>();
+            A.CallTo(() => commandResult.IsSuccessful).Returns(false);
+            A.CallTo(() => commandResult.Messages).Returns(new Message() { MessageType = Enums.MessageType.Information });
 
             var result = this.baseController.DefineCorrectlyResult(commandResult);
 
             result.Should().BeAssignableTo<BadRequestObjectResult>();
             (result as BadRequestObjectResult).StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
-            (result as BadRequestObjectResult).Value.Should().BeEquivalentTo(new CommandResult(false, true, new Message() { MessageType = Enums.MessageType.Information }));
         }
     }
 

@@ -164,7 +164,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
             var random = new Random();
             var listFriends = new List<Friend>();
 
-            for (int i = 0; i < 1000000; i++)
+            for (int i = 0; i < 10000; i++)
                 listFriends.Add(new Friend($"{i}", new Point(random.Next(0, 1000), random.Next(0, 1000))));
 
             A.CallTo(() => friendRepository.GetAll())

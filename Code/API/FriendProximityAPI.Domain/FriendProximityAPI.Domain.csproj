@@ -9,4 +9,8 @@
     <ProjectReference Include="..\FriendProximityAPI.Shared\FriendProximityAPI.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

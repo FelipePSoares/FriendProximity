@@ -25,10 +25,7 @@ namespace FriendProximityAPI.Shared.Controllers
         {
             if (commandResult.IsSuccessful)
             {
-                if (commandResult.Data == null)
-                    return NoContent();
-                else
-                    return Ok(commandResult);
+                return Ok(commandResult);
             }
             else if (HasMessageTypedError(commandResult))
                 return GetCorrectlyResult(commandResult);
