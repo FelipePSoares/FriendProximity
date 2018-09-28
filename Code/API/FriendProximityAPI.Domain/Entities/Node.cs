@@ -63,7 +63,7 @@ namespace FriendProximityAPI.Domain.Entities
             => this.MaxPoint.Latitude >= point.Latitude && this.MaxPoint.Longitude >= point.Longitude &&
                 this.MinPoint.Latitude <= point.Latitude && this.MinPoint.Longitude <= point.Longitude;
 
-        public Node GetSiblingNode() => this.ParentNode.childNodes.Find(n => !n.Equals(this));
+        public Node GetSiblingNode() => this.ParentNode?.childNodes?.Find(n => !n.Equals(this));
 
         private void NewLongitudeChildNodes(int newLongitude, int times)
         {

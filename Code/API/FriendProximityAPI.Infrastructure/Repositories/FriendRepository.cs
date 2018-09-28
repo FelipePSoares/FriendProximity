@@ -7,6 +7,8 @@ namespace FriendProximityAPI.Infrastructure.Repositories
 {
     public class FriendRepository : IFriendRepository
     {
+
+
         public bool Add(Friend friend)
         {
             throw new NotImplementedException();

@@ -17,7 +17,7 @@ namespace FriendProximityAPI.Controllers
         [HttpGet]
         public IActionResult GetFriends([FromServices]IGetFriendHandler getFriendHandler)
         {
-            return DefineCorrectlyResult(getFriendHandler.Handler(default));
+            return DefineCorrectlyResult(getFriendHandler.Handler(new GetFriendCommand(3)));
         }
 
         /// <summary>

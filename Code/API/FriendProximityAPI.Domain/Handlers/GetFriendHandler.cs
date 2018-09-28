@@ -29,44 +29,68 @@ namespace FriendProximityAPI.Domain.Handlers
             if (command.Invalid)
                 return new CommandResult(false, command, command.Notifications.ToList());
 
-            var friendsFormatted = FormatFriends(friendRepository.GetAll().ToList(), 3);
+            var friendsFormatted = FormatFriends(friendRepository.GetAll().ToList(), command.NumberOfCloserFriends);
 
             return new CommandResult(true, friendsFormatted.Select(f => new { name = f.Name, close_friends = f.CloseFriends }).ToList(), default);
         }
 
-        private List<(string Name, List<string> CloseFriends)> FormatFriends(List<Friend> friends, int numberOfCloserFriends)
+        private List<(string Name, IEnumerable<string> CloseFriends)> FormatFriends(List<Friend> friends, int numberOfCloserFriends)
             => friends
-                .Select(friend => (friend.Name, CloseFriends: GetCloseFriends(friend, ListFriendsWithout(friends, friend), numberOfCloserFriends))).ToList();
-
-        private List<Friend> ListFriendsWithout(List<Friend> friends, Friend friend) 
-            => friends.Where(f => f.Id != friend.Id).ToList();
-
-        private List<string> GetCloseFriends(Friend actualFriend, List<Friend> list, int numberOfCloserFriends)
+                .Select(friend => (friend.Name, CloseFriends: GetCloseFriends(friend, friends, numberOfCloserFriends))).ToList();
+        
+        private IEnumerable<string> GetCloseFriends(Friend actualFriend, List<Friend> list, int numberOfCloserFriends)
         {
             if (list == null || list.Count == 0)
-                return default;
+                yield break;
 
             var tree = CreateTree(list);
+            list = list.Where(f => f.Id != actualFriend.Id).ToList();
 
-            var closestFriend = ClosestFriend(actualFriend, tree, list);
+            if (list.Count < numberOfCloserFriends)
+                numberOfCloserFriends = list.Count;
 
-            return new List<string>() { list.Find(f => f.Id == closestFriend.Key).Name };
+            for (int i = 0; i < numberOfCloserFriends; i++)
+            {
+                var closest = ClosestFriend(actualFriend, tree, list).Key;
+                if (closest != Guid.Empty)
+                {
+                    yield return list.Find(f => f.Id == closest).Name;
+                    list.RemoveAt(list.FindIndex(f => f.Id == closest));
+                }
+            }
         }
 
         private KeyValuePair<Guid, double> ClosestFriend(Friend actualFriend, Node tree, List<Friend> list)
         {
             Node leaf = GetPointLeaf(actualFriend.Point, tree);
 
-            var closest = ClosestFriendInsideNode(actualFriend.Point, list, leaf);
+            var closest = KeyValuePair.Create(Guid.Empty, double.MaxValue);
+
+            var closestLocated = ClosestFriendInsideNode(actualFriend.Point, list, leaf, closest);
             
-            return closest;
+            return closestLocated.Key == Guid.Empty ? closest : closestLocated;
         }
 
-        private KeyValuePair<Guid, double> ClosestFriendInsideNode(Point actualPoint, List<Friend> list, Node leaf)
+        private KeyValuePair<Guid, double> ClosestFriendInsideNode(Point actualPoint, List<Friend> list, Node node, KeyValuePair<Guid, double> closestFriend)
         {
-            var friends = GetFriendsInsideNode(list, leaf);
-            return friends.Select(f => KeyValuePair.Create(f.Id, f.Point.CalculateDistance(actualPoint)))
-                .OrderBy(d => d.Value).FirstOrDefault();
+            closestFriend = SearchClosestFriendInsideNode(actualPoint, list, node, closestFriend);
+
+            var sibling = node.GetSiblingNode();
+            if (sibling != null)
+                closestFriend = SearchClosestFriendInsideNode(actualPoint, list, sibling, closestFriend);
+
+            return node.ParentNode != null ? ClosestFriendInsideNode(actualPoint, list, node.ParentNode, closestFriend) : closestFriend;
+        }
+
+        private KeyValuePair<Guid, double> SearchClosestFriendInsideNode(Point actualPoint, List<Friend> list, Node node, KeyValuePair<Guid, double> closestFriend)
+        {
+            var closestLocated = GetFriendsInsideNode(list, node).Select(f => KeyValuePair.Create(f.Id, f.Point.CalculateDistance(actualPoint)))
+                           .Where(f => f.Value < closestFriend.Value).OrderBy(d => d.Value).FirstOrDefault();
+            
+            if (closestLocated.Key != Guid.Empty && closestLocated.Value < closestFriend.Value)
+                closestFriend = closestLocated;
+
+            return closestFriend;
         }
 
         private List<Friend> GetFriendsInsideNode(List<Friend> list, Node node)
