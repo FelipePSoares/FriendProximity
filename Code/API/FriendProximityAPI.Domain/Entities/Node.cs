@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace FriendProximityAPI.Domain.Entities
 {
@@ -44,9 +42,9 @@ namespace FriendProximityAPI.Domain.Entities
             if (times == 0)
                 return this;
             else if (times % 2 == 0)
-                NewLongitudeChildNodes((this.MaxPoint.Longitude - this.MinPoint.Longitude) / 2, times);
+                NewLongitudeChildNodes((this.MaxPoint.Longitude - this.MinPoint.Longitude) / 2, --times);
             else
-                NewLatitudeChildNodes((this.MaxPoint.Latitude - this.MinPoint.Latitude) / 2, times);
+                NewLatitudeChildNodes((this.MaxPoint.Latitude - this.MinPoint.Latitude) / 2, --times);
 
             return this;
         }
