@@ -85,7 +85,17 @@ namespace FriendProximityAPI.Domain.Handlers
 
         private KeyValuePair<Guid, double> SearchClosestFriendInsideNode(Point actualPoint, List<Friend> list, Node node, KeyValuePair<Guid, double> closestFriend)
         {
-            var closestLocated = GetFriendsInsideNode(list, node).Select(f => KeyValuePair.Create(f.Id, f.Point.CalculateDistance(actualPoint)))
+            var friendsInsideNode = node.GetFriendsInsideNode(list);
+
+            if (friendsInsideNode.Count == 0)
+                return closestFriend;
+
+            double groupDistance = actualPoint.CalculateGroupDistance(GetGroupSize(friendsInsideNode));
+
+            if (groupDistance > closestFriend.Value)
+                return closestFriend;
+
+            var closestLocated = friendsInsideNode.Select(f => KeyValuePair.Create(f.Id, f.Point.CalculateDistance(actualPoint)))
                            .Where(f => f.Value < closestFriend.Value).OrderBy(d => d.Value).FirstOrDefault();
             
             if (closestLocated.Key != Guid.Empty && closestLocated.Value < closestFriend.Value)
@@ -94,18 +104,22 @@ namespace FriendProximityAPI.Domain.Handlers
             return closestFriend;
         }
 
-        private List<Friend> GetFriendsInsideNode(List<Friend> list, Node node)
-            => list.Where(f => node.IsInside(f.Point)).ToList();
+        private Node GetGroupSize(List<Friend> friendsInsideNode)
+        {
+            var maxPoint = new Point(friendsInsideNode.Max(f => f.Point.Latitude), friendsInsideNode.Max(f => f.Point.Longitude));
+            var minPoint = new Point(friendsInsideNode.Min(f => f.Point.Latitude), friendsInsideNode.Min(f => f.Point.Longitude));
+            return new Node(maxPoint, minPoint);
+        }
 
         private Node GetPointLeaf(Point point, Node tree)
             => tree.GetLeaf(point);
 
-        private Node CreateTree(List<Friend> list)
+        private Node CreateTree(List<Friend> friends)
         {
-            var minPoint = new Point(list.Min(f => f.Point.Latitude), list.Min(f => f.Point.Longitude));
-            var maxPoint = new Point(list.Max(f => f.Point.Latitude), list.Max(f => f.Point.Longitude));
+            var minPoint = new Point(friends.Min(f => f.Point.Latitude), friends.Min(f => f.Point.Longitude));
+            var maxPoint = new Point(friends.Max(f => f.Point.Latitude), friends.Max(f => f.Point.Longitude));
 
-            return new Node(maxPoint, minPoint).SplitNode(list.Count / 3);
+            return new Node(maxPoint, minPoint).SplitNode(friends, friends.Count / 3);
         }
     }
 }

@@ -155,24 +155,7 @@ namespace FriendProximityAPI.Infrastructure.Test.UnitTests
 
             var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
 
-            JsonConvert.SerializeObject(result.Data).Should().Be(@"[{""name"":""A"",""close_friends"":[""B"",""M"",""I""]},{""name"":""B"",""close_friends"":[""D"",""F"",""L""]},{""name"":""C"",""close_friends"":[""E"",""I"",""J""]},{""name"":""D"",""close_friends"":[""F"",""L"",""B""]},{""name"":""E"",""close_friends"":[""J"",""C"",""I""]},{""name"":""F"",""close_friends"":[""D"",""L"",""K""]},{""name"":""G"",""close_friends"":[""L"",""D"",""F""]},{""name"":""H"",""close_friends"":[""K"",""F"",""E""]},{""name"":""I"",""close_friends"":[""M"",""C"",""K""]},{""name"":""J"",""close_friends"":[""E"",""C"",""H""]},{""name"":""K"",""close_friends"":[""I"",""F"",""C""]},{""name"":""L"",""close_friends"":[""G"",""D"",""F""]},{""name"":""M"",""close_friends"":[""I"",""C"",""K""]}]");
-        }
-
-        [TestMethod]
-        public void ShouldReturnCorrectlyForManyFriends()
-        {
-            var random = new Random();
-            var listFriends = new List<Friend>();
-
-            for (int i = 0; i < 10000; i++)
-                listFriends.Add(new Friend($"{i}", new Point(random.Next(0, 1000), random.Next(0, 1000))));
-
-            A.CallTo(() => friendRepository.GetAll())
-                .Returns(listFriends);
-
-            var result = this.getFriendHandler.Handler(new GetFriendCommand(3));
-
-            result.IsSuccessful.Should().BeTrue();
+            JsonConvert.SerializeObject(result.Data).Should().Be(@"[{""name"":""A"",""close_friends"":[""B"",""M"",""I""]},{""name"":""B"",""close_friends"":[""D"",""F"",""K""]},{""name"":""C"",""close_friends"":[""E"",""I"",""J""]},{""name"":""D"",""close_friends"":[""F"",""L"",""B""]},{""name"":""E"",""close_friends"":[""J"",""C"",""H""]},{""name"":""F"",""close_friends"":[""D"",""K"",""L""]},{""name"":""G"",""close_friends"":[""L"",""D"",""F""]},{""name"":""H"",""close_friends"":[""K"",""F"",""E""]},{""name"":""I"",""close_friends"":[""M"",""C"",""K""]},{""name"":""J"",""close_friends"":[""E"",""C"",""H""]},{""name"":""K"",""close_friends"":[""I"",""F"",""C""]},{""name"":""L"",""close_friends"":[""G"",""D"",""F""]},{""name"":""M"",""close_friends"":[""I"",""C"",""K""]}]");
         }
     }
 }

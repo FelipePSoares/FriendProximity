@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace FriendProximityAPI.Domain.Entities
 {
@@ -37,14 +38,17 @@ namespace FriendProximityAPI.Domain.Entities
             private set => this.childNodes = value;
         }
 
-        public Node SplitNode(int times)
+        public Node SplitNode(List<Friend> friends, int times)
         {
+            var friendsInsideNode = this.GetFriendsInsideNode(friends);
+            var friendSelected = friendsInsideNode.FirstOrDefault();
+
             if (times == 0)
                 return this;
             else if (times % 2 == 0)
-                NewLongitudeChildNodes((this.MaxPoint.Longitude - this.MinPoint.Longitude) / 2, --times);
+                NewLongitudeChildNodes(friendSelected.Point.Longitude, friendsInsideNode, --times);
             else
-                NewLatitudeChildNodes((this.MaxPoint.Latitude - this.MinPoint.Latitude) / 2, --times);
+                NewLatitudeChildNodes(friendSelected.Point.Latitude, friendsInsideNode, --times);
 
             return this;
         }
@@ -65,19 +69,22 @@ namespace FriendProximityAPI.Domain.Entities
 
         public Node GetSiblingNode() => this.ParentNode?.childNodes?.Find(n => !n.Equals(this));
 
-        private void NewLongitudeChildNodes(int newLongitude, int times)
+        public List<Friend> GetFriendsInsideNode(List<Friend> friends)
+            => friends.Where(f => this.IsInside(f.Point)).ToList();
+
+        private void NewLongitudeChildNodes(int newLongitude, List<Friend> friends, int times)
         {
-            AddChildNode(new Point(this.MaxPoint.Latitude, newLongitude), this.MinPoint, times);
-            AddChildNode(this.MaxPoint, new Point(this.MinPoint.Latitude, newLongitude), times);
+            AddChildNode(new Point(this.MaxPoint.Latitude, newLongitude), this.MinPoint, friends, times);
+            AddChildNode(this.MaxPoint, new Point(this.MinPoint.Latitude, newLongitude), friends, times);
         }
 
-        private void NewLatitudeChildNodes(int newLatitude, int times)
+        private void NewLatitudeChildNodes(int newLatitude, List<Friend> friends, int times)
         {
-            AddChildNode(new Point(newLatitude, this.MaxPoint.Longitude), this.MinPoint, times);
-            AddChildNode(this.MaxPoint, new Point(newLatitude, this.MinPoint.Longitude), times);
+            AddChildNode(new Point(newLatitude, this.MaxPoint.Longitude), this.MinPoint, friends, times);
+            AddChildNode(this.MaxPoint, new Point(newLatitude, this.MinPoint.Longitude), friends, times);
         }
 
-        private void AddChildNode(Point maxPoint, Point minPoint, int times)
-            => this.ChildNodes.Add(new Node(maxPoint, minPoint, this).SplitNode(times));
+        private void AddChildNode(Point maxPoint, Point minPoint, List<Friend> friends, int times)
+            => this.ChildNodes.Add(new Node(maxPoint, minPoint, this).SplitNode(friends, times));
     }
 }
